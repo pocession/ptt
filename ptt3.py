@@ -1,6 +1,7 @@
 # Some practice for scraping ptt
 # This python scapper allows you to get article title and its review count from ptt
 # Make sure the typing of sub forum name is correct, it's case sensitive
+# A negative score of an atricle review is counted as 0
 
 import requests
 import csv
@@ -70,6 +71,8 @@ while i < len(pagelist):
             x = x.replace('','0')
         if x == '爆':
             x = '99'
+        else:
+            x = '0' # X1 or X... are counted as 0
         x = int(x)
         y = article_title[n]
         y = y.text.replace("\n","").replace(" ","").replace("\t","")
