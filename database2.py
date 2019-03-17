@@ -6,7 +6,7 @@ import csv
 
 conn = sqlite3.connect('ptt.db')
 c = conn.cursor()
-csvfile = open('Japan_Travel.csv','r')
+csvfile = open('Japan_Travel_clean.csv','r')
 rowreader = csv.reader(csvfile,delimiter=',')
 article_list=[]
 for row in rowreader:
@@ -29,7 +29,7 @@ while j < len(new_list):
     review = element[1]
     article_id = element[2]
     item=[title, review, article_id]
-    c.execute('''INSERT INTO ARTICLE_INDEX (TITLE, REVIEW, ID) VALUES(?,?,?)''',item)
+    c.execute('''INSERT INTO article (title, review, id) VALUES(?,?,?)''',item)
     j+=1
 
 
