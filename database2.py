@@ -1,5 +1,5 @@
 # Demo how to read csv and write it into database
-# Select 遊記 from csv file AND write into database
+# Select articles with id from csv file AND write into database
 
 import sqlite3
 import csv
@@ -11,27 +11,28 @@ rowreader = csv.reader(csvfile,delimiter=',')
 article_list=[]
 for row in rowreader:
     article_list.append(row)
-print("Total article number: ",len(article_list) - 1)
+print("Total article number is: ",len(article_list) - 1)
 
 i = 1
 new_list=[]
 while i < len(article_list):
     element = article_list[i]
-    if element[0].find('[遊記]') == 0 and element[0].find('沖繩') != -1:
-        new_list.append(element)
+    new_list.append(element)
     i+=1
-print("Total 遊記 about 沖繩 numer is: ",len(new_list))
 
 j = 0
+k = 0
 while j < len(new_list):
     element = new_list[j]
     title = element[0]
     review = element[1]
     article_id = element[2]
     item=[title, review, article_id]
-    c.execute('''INSERT INTO article (title, review, id) VALUES(?,?,?)''',item)
+    if article_id != '':
+        c.execute('''INSERT INTO article_large (title, review, id) VALUES(?,?,?)''',item)
+        k+=1
     j+=1
-
+print("The actual article number written in the database is: ",k)
 
 conn.commit()
 conn.close()
